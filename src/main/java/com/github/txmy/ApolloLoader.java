@@ -1,5 +1,6 @@
 package com.github.txmy;
 
+import com.github.txmy.event.ApolloLoadEvent;
 import com.github.txmy.modules.*;
 import com.github.txmy.util.ApolloUtils;
 import com.github.txmy.util.DownloadFileThread;
@@ -18,6 +19,7 @@ import java.nio.file.Paths;
 public class ApolloLoader {
 
     private final JavaPlugin plugin;
+    private final ApolloLoaderOptions options;
     private final ApolloBorderModule borderModule;
     private final ApolloChatModule chatModule;
     private final ApolloCombatModule combatModule;
@@ -31,29 +33,20 @@ public class ApolloLoader {
 
     private boolean downloadedLatest;
 
-    public ApolloLoader(JavaPlugin plugin, boolean registerSync) {
+    public ApolloLoader(JavaPlugin plugin, ApolloLoaderOptions options) {
         this.plugin = plugin;
+        this.options = options;
 
         if (!this.isRegistered()) {
             ApolloUtils.logger = plugin.getLogger();
             Path serverPath = plugin.getServer().getWorldContainer().toPath().normalize();
 
-            if (!registerSync) {
-                String urlString = ApolloUtils.getLatestVersionDownloadLink();
+            String urlString = ApolloUtils.getLatestVersionDownloadLink();
 
-                String fileName = urlString.substring(urlString.lastIndexOf("/") + 1);
-                Path path = Paths.get(serverPath.toString(), "plugins/" + fileName);
+            String fileName = urlString.substring(urlString.lastIndexOf("/") + 1);
+            Path path = Paths.get(serverPath.toString(), "plugins/" + fileName);
 
-                download(urlString, path, fileName);
-            } else {
-                ApolloUtils.getLatestVersionDownloadLinkAsync().thenAcceptAsync(urlString -> {
-                    String fileName = urlString.substring(urlString.lastIndexOf("/") + 1);
-                    Path path = Paths.get(serverPath.toString(), "plugins/" + fileName);
-
-                    download(urlString, path, fileName);
-                });
-            }
-
+            download(urlString, path, fileName);
             downloadedLatest = true;
         }
 
@@ -67,15 +60,18 @@ public class ApolloLoader {
         this.teamModule = new ApolloTeamModule(this);
         this.titleModule = new ApolloTitleModule(this);
         this.waypointModule = new ApolloWaypointModule(this);
+
+        ApolloLoadEvent event = new ApolloLoadEvent();
+        plugin.getServer().getPluginManager().callEvent(event);
     }
 
     private void download(String urlString, Path path, String fileName) {
         DownloadUtils.download(DownloadFileThread.builder()
                 .urlString(urlString)
                 .path(path)
-                .progressReportHandler(progress -> plugin.getLogger().info("Downloading " + fileName + ",  (" + progress + "% / 100%)"))
+                .progressReportHandler(progress -> plugin.getLogger().info(options.getProgressReportOrFallback(progressS -> "Downloading " + fileName + ",  (" + progress + "% / 100%)").apply(progress)))
                 .finishedHandler(bytes -> {
-                    plugin.getLogger().info("Successfully downloaded " + fileName + ". (Size: " + (bytes / (1024 * 1024) + " MB)"));
+                    plugin.getLogger().info(options.getFinishedReportOrFallback(totalBytes -> "Successfully downloaded " + fileName + ". (Size: " + (bytes / (1024 * 1024) + " MB)")).apply(bytes));
 
                     try {
                         PluginManager manager = plugin.getServer().getPluginManager();
@@ -83,10 +79,12 @@ public class ApolloLoader {
                         manager.enablePlugin(this.getApolloPlugin());
                     } catch (Exception ex) {
                         plugin.getLogger().info("Failed to initialize plugin " + fileName + ", restarting the server...");
-                        TaskUtil.runLater(plugin, () -> plugin.getServer().shutdown(), 10L);
+                        if (options.isRestartUponLoadingError())
+                            TaskUtil.runLater(plugin, () -> plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restart"), 10L);
                     }
+
                 })
-                .errorHandler(error -> plugin.getLogger().severe("Error ocurred while downloading " + fileName + ": " + error.getMessage()))
+                .errorHandler(error -> plugin.getLogger().severe(options.getErrorReportOrFallback(ex -> "Error ocurred while downloading " + fileName + ": " + error.getMessage()).apply(error)))
                 .build()
         );
     }
