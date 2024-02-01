@@ -36,6 +36,7 @@ public class AbyssLoader {
     private final AbyssWaypointModule waypointModule;
     private final AbyssTeamModule teamModule;
 
+    private boolean loaded;
     private boolean downloadedLatest;
 
     public AbyssLoader(JavaPlugin plugin, AbyssLoaderOptions options) {
@@ -66,8 +67,19 @@ public class AbyssLoader {
         this.titleModule = new AbyssTitleModule(this);
         this.waypointModule = new AbyssWaypointModule(this);
 
+        loaded = true;
+
         AbyssLoadEvent event = new AbyssLoadEvent();
         plugin.getServer().getPluginManager().callEvent(event);
+    }
+
+    /**
+     * Checks if abyss has fully loaded yet.
+     *
+     * @return true if abyss already loaded every module.
+     */
+    public boolean hasLoaded() {
+        return loaded;
     }
 
     private void download(String urlString, Path path, String fileName) {
