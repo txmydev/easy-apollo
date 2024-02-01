@@ -1,6 +1,6 @@
-package com.github.txmy.modules;
+package org.contrum.abbys.modules;
 
-import com.github.txmy.ApolloLoader;
+import org.contrum.abbys.AbyssLoader;
 import com.google.common.collect.Maps;
 import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.common.cuboid.Cuboid2D;
@@ -21,15 +21,15 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-public class ApolloBorderModule implements ApolloListener {
-    private final ApolloLoader loader;
+public class AbyssBorderModule implements ApolloListener {
+    private final AbyssLoader loader;
     private final JavaPlugin plugin;
 
     private final Map<String, Border> borders;
     private final Map<String, List<UUID>> viewers;
     private final BorderModule module;
 
-    public ApolloBorderModule(ApolloLoader loader) {
+    public AbyssBorderModule(AbyssLoader loader) {
         this.loader = loader;
         this.plugin = loader.getPlugin();
         this.borders = new HashMap<>();
@@ -39,12 +39,27 @@ public class ApolloBorderModule implements ApolloListener {
         EventBus.getBus().register(this);
     }
 
+    /**
+     * Removes a border from a player.
+     *
+     * @param player The player to remove the border from.
+     * @param id     The border-id
+     */
     public void resetBorderForPlayer(Player player, String id) {
         Apollo.getPlayerManager().getPlayer(player.getUniqueId()).ifPresent(apolloPlayer -> {
             this.resetBorderForPlayer(apolloPlayer, id);
         });
     }
 
+    /**
+     * Sets a new border for a specific player.
+     *
+     * @param player The ApolloPlayer to set the border.
+     * @param world  The world that the border will be in.
+     * @param id     The border-id
+     * @param bounds The region of the border.
+     * @param color  The color of the border
+     */
     public void setBorderForPlayer(ApolloPlayer player, World world, String id, Cuboid2D bounds, Color color) {
         module.displayBorder(player, Border.builder()
                 .id(id)
@@ -58,16 +73,39 @@ public class ApolloBorderModule implements ApolloListener {
                 .build());
     }
 
+    /**
+     * Removes a border from a specific player.
+     *
+     * @param player The ApolloPlayer to remove the border
+     * @param id     The border-id
+     */
     public void resetBorderForPlayer(ApolloPlayer player, String id) {
         module.removeBorder(player, id);
     }
 
+    /**
+     * Sets a border for a specific player.
+     *
+     * @param player The bukkit player to send the border.
+     * @param world  The world that the border will be in.
+     * @param id     The id of the border.
+     * @param bounds The region of the border.
+     * @param color  The color the border will have.
+     */
     public void setBorderForPlayer(Player player, World world, String id, Cuboid2D bounds, Color color) {
         Apollo.getPlayerManager().getPlayer(player.getUniqueId()).ifPresent(apolloPlayer -> {
             this.setBorderForPlayer(apolloPlayer, world, id, bounds, color);
         });
     }
 
+    /**
+     * Sets a border for all the players in the world.
+     *
+     * @param world  The world that the border will be in.
+     * @param id     The id of the border
+     * @param bounds The region of the border.
+     * @param color The color the border will have.
+     */
     public void setBorder(World world, String id, Cuboid2D bounds, Color color) {
         boolean existed = borders.containsKey(id);
 
@@ -101,6 +139,11 @@ public class ApolloBorderModule implements ApolloListener {
         });
     }
 
+    /**
+     * Removes a border from all the players in the world.
+     *
+     * @param id The border id to remove.
+     */
     public void resetBorder(String id) {
         this.borders.remove(id);
 
@@ -132,11 +175,11 @@ public class ApolloBorderModule implements ApolloListener {
         ApolloPlayer player = event.getPlayer();
         borders.forEach((id, border) ->
         {
-                List<UUID> viewers = this.viewers.get(id);
-                if (viewers.contains(player.getUniqueId())) {
-                    module.removeBorder(player, id);
-                    viewers.remove(player.getUniqueId());
-                }
+            List<UUID> viewers = this.viewers.get(id);
+            if (viewers.contains(player.getUniqueId())) {
+                module.removeBorder(player, id);
+                viewers.remove(player.getUniqueId());
+            }
         });
     }
 

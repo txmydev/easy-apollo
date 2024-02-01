@@ -1,31 +1,5 @@
-# Abyss Lunar Addon
-The only needed addon to start using [Apollo](https://github.com/LunarClient/Apollo}).
+package org.contrum.abbys.example;
 
-## Installation
-```bash
-git clone https://github.com/Contrum/AbyssLunarAddon && cd AbyssLunarAddon
-mvn clean install
-```
-## Usage
-### Maven
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.contrum.abbys</groupId>
-        <artifactId>AbyssLunarAddon</artifactId>
-        <version>0.9.2</version>
-        <scope>compile</scope>
-    </dependency>
-</dependencies>
-```
-```groovy
-dependencies {
-    implementation 'org.contrum.abbys.AbyssLunarAddon:0.9.2'
-}
-```
-
-## Example
-```java
 import com.lunarclient.apollo.BukkitApollo;
 import com.lunarclient.apollo.common.cuboid.Cuboid2D;
 import com.lunarclient.apollo.module.waypoint.Waypoint;
@@ -98,4 +72,3 @@ public class ExampleAbbysPlugin extends JavaPlugin implements Listener {
         });
     }
 }
-```

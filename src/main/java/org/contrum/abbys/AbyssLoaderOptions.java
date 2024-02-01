@@ -1,4 +1,4 @@
-package com.github.txmy;
+package org.contrum.abbys;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 @Builder
 @Getter
-public class ApolloLoaderOptions {
+public class AbyssLoaderOptions {
 
     private boolean downloadIfMissing = true;
     private Function<Integer, String> progressReport;

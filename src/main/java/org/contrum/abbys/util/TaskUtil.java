@@ -1,4 +1,4 @@
-package com.github.txmy.util;
+package org.contrum.abbys.util;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.bukkit.plugin.Plugin;

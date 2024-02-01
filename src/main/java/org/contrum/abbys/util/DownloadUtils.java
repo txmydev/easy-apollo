@@ -1,4 +1,4 @@
-package com.github.txmy.util;
+package org.contrum.abbys.util;
 
 import lombok.experimental.UtilityClass;
 

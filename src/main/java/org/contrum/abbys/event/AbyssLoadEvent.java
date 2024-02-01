@@ -1,10 +1,10 @@
-package com.github.txmy.event;
+package org.contrum.abbys.event;
 
 import lombok.Getter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class ApolloLoadEvent extends Event {
+public class AbyssLoadEvent extends Event {
 
     @Getter
     private static final HandlerList handlerList = new HandlerList();
