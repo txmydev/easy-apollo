@@ -13,14 +13,14 @@ mvn clean install
     <dependency>
         <groupId>org.contrum.abbys</groupId>
         <artifactId>AbyssLunarAddon</artifactId>
-        <version>0.9.2</version>
+        <version>1.0.0</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
 ```
 ```groovy
 dependencies {
-    implementation 'org.contrum.abbys.AbyssLunarAddon:0.9.2'
+    implementation 'org.contrum.abbys.AbyssLunarAddon:1.0.0'
 }
 ```
 
