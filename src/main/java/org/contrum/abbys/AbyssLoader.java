@@ -11,14 +11,12 @@ import org.contrum.abbys.event.AbyssLoadEvent;
 import org.contrum.abbys.modules.*;
 import org.contrum.abbys.util.ApolloUtils;
 import org.contrum.abbys.util.DownloadFileThread;
-import org.contrum.abbys.util.DownloadUtils;
 import org.contrum.abbys.util.TaskUtil;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 @Getter
 public class AbyssLoader {
@@ -83,7 +81,7 @@ public class AbyssLoader {
     }
 
     private void download(String urlString, Path path, String fileName) {
-        DownloadUtils.download(DownloadFileThread.builder()
+        DownloadFileThread.builder()
                 .urlString(urlString)
                 .path(path)
                 .progressReportHandler(progress -> plugin.getLogger().info(options.getProgressReportOrFallback(progressS -> "Downloading " + fileName + ",  (" + progress + "% / 100%)").apply(progress)))
@@ -103,7 +101,7 @@ public class AbyssLoader {
                 })
                 .errorHandler(error -> plugin.getLogger().severe(options.getErrorReportOrFallback(ex -> "Error ocurred while downloading " + fileName + ": " + error.getMessage()).apply(error)))
                 .build()
-        );
+                .start();
     }
 
     private Plugin getApolloPlugin() {
@@ -127,7 +125,7 @@ public class AbyssLoader {
     /**
      * Performs an iteration through a list, with consumers to accept condition
      *
-     * @param players The colleciton of players to loop through.
+     * @param players      The colleciton of players to loop through.
      * @param loopConsumer The callback to perform for each player (boolean determines if the player is running Lunar Client or not).
      */
     public void perform(Collection<? extends Player> players, BiConsumer<Player, Boolean> loopConsumer) {

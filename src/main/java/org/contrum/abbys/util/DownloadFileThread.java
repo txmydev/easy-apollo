@@ -1,6 +1,7 @@
 package org.contrum.abbys.util;
 
 import lombok.Builder;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -10,7 +11,7 @@ import java.net.URL;
 import java.nio.file.Path;
 
 @Builder
-public class DownloadFileThread extends Thread {
+public class DownloadFileThread implements Runnable {
 
     private final String urlString;
     private final Path path;
@@ -24,6 +25,10 @@ public class DownloadFileThread extends Thread {
         this.progressReportHandler = progressReportHandler;
         this.errorHandler = errorHandler;
         this.finishedHandler = finishedHandler;
+    }
+
+    public void start() {
+        this.run();
     }
 
     @Override
