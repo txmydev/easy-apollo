@@ -1,3 +1,0 @@
-name: easy-apollo
-version: '${project.version}'
-main: com.github.txmy.easyapollo.Easy_apollo

@@ -74,8 +74,8 @@ public class AbyssWaypointModule implements ApolloListener {
      * @param name The name of the waypoint
      */
     public void removeWaypoint(String name) {
-        this.waypoints.remove(name);
-        this.module.removeWaypoint(Recipients.ofEveryone(), name);
+        module.removeWaypoint(Recipients.ofEveryone(), this.waypoints.remove(name));
+        module.removeWaypoint(Recipients.ofEveryone(), name);
     }
 
     @Listen

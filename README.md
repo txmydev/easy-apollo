@@ -1,7 +1,18 @@
 # Abyss Lunar Addon
-The only needed addon to start using [Apollo](https://github.com/LunarClient/Apollo}).
+The only needed addon to start using [Apollo](https://github.com/LunarClient/Apollo).
 
-## Installation
+# Usages
+You can use Abyss as an [api](https://github.com/Contrum/AbyssLunarAddon/api)
+or use the [plugin](https://github.com/Contrum/AbyssLunarAddon/plugin) which includes
+commands and multiple HCF plugins hooks for rallys, koths, etc.
+
+## Using the plugin
+Download the plugin from releases page and install it in your server,
+the first time it will search for Apollo dependency, if not found it will be downloaded,
+If apollo cannot be started after downloading it, then the server will restart to ensure
+Apollo is loaded.
+
+## Using the API
 ```bash
 git clone https://github.com/Contrum/AbyssLunarAddon && cd AbyssLunarAddon
 mvn clean install
@@ -12,19 +23,21 @@ mvn clean install
 <dependencies>
     <dependency>
         <groupId>org.contrum.abbys</groupId>
-        <artifactId>AbyssLunarAddon</artifactId>
+        <artifactId>api</artifactId>
         <version>1.0.0</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
 ```
+
+### Gradle
 ```groovy
 dependencies {
-    implementation 'org.contrum.abbys.AbyssLunarAddon:1.0.0'
+    implementation 'org.contrum.abbys.api:1.0.0'
 }
 ```
 
-## Example
+## Example API Usage
 ```java
 import com.lunarclient.apollo.BukkitApollo;
 import com.lunarclient.apollo.common.cuboid.Cuboid2D;
