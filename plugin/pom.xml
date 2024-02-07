@@ -62,10 +62,6 @@
             <id>lunarclient</id>
             <url>https://repo.lunarclient.dev</url>
         </repository>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
     </repositories>
 
     <dependencies>
