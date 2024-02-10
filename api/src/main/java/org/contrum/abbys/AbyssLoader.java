@@ -1,6 +1,11 @@
 package org.contrum.abbys;
 
 import com.lunarclient.apollo.Apollo;
+import com.lunarclient.apollo.BukkitApollo;
+import com.lunarclient.apollo.event.ApolloListener;
+import com.lunarclient.apollo.event.EventBus;
+import com.lunarclient.apollo.event.Listen;
+import com.lunarclient.apollo.event.player.ApolloRegisterPlayerEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -8,6 +13,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.contrum.abbys.event.AbyssLoadEvent;
+import org.contrum.abbys.event.PlayerRegisterLunarClientEvent;
 import org.contrum.abbys.modules.*;
 import org.contrum.abbys.util.ApolloUtils;
 import org.contrum.abbys.util.DownloadFileThread;
@@ -19,7 +25,7 @@ import java.util.Collection;
 import java.util.function.BiConsumer;
 
 @Getter
-public class AbyssLoader {
+public class AbyssLoader implements ApolloListener {
 
     private final JavaPlugin plugin;
     private final AbyssLoaderOptions options;
@@ -69,6 +75,8 @@ public class AbyssLoader {
 
         AbyssLoadEvent event = new AbyssLoadEvent();
         plugin.getServer().getPluginManager().callEvent(event);
+
+        EventBus.getBus().register(this);
     }
 
     /**
@@ -132,6 +140,14 @@ public class AbyssLoader {
         players.forEach(player -> {
             loopConsumer.accept(player, isRunningLunar(player));
         });
+    }
+
+    @Listen
+    private void onRegisterPlayer(ApolloRegisterPlayerEvent event) {
+        Player player = Bukkit.getPlayer(event.getPlayer().getUniqueId());
+
+        PlayerRegisterLunarClientEvent register = new PlayerRegisterLunarClientEvent(player);
+        plugin.getServer().getPluginManager().callEvent(register);
     }
 
 }

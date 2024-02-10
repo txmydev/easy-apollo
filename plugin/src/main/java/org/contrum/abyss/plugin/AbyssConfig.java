@@ -46,7 +46,7 @@ public class AbyssConfig {
             "you can use {player} to represent the player that made the ",
             "rally."
     })
-    private String rallyWaypointFormat = "&6Rally Location";
+    private String rallyWaypointFormat = "Clan Rally";
     @Comment({
             "Set the color of the rally waypoint (in hex format)"
     })

@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.contrum.abbys.AbyssLoader;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class ClansListener implements Listener, Runnable {
             Optional<ClanData> clanOptional  = clans.getPlayerAPI().getPlayerClan(player.getUniqueId());
             clanOptional.ifPresent(clan -> {
                 loader.getTeamModule().update(player,
-                        clan.getOnlineMembers().stream().map(Bukkit::getPlayer).collect(Collectors.toList()),
+                        new ArrayList<>(clan.getOnlineMembers().stream().map(Bukkit::getPlayer).collect(Collectors.toList())),
                         Color.GREEN,
                         teammate -> net.kyori.adventure.text.Component.text(teammate.getDisplayName()));
             });

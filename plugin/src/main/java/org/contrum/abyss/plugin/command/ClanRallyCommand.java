@@ -20,8 +20,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.contrum.abbys.AbyssLoader;
+import org.contrum.abbys.event.PlayerRegisterLunarClientEvent;
 import org.contrum.abyss.plugin.AbyssConfig;
 import org.contrum.abyss.plugin.AbyssPlugin;
 
@@ -44,9 +44,10 @@ public class ClanRallyCommand implements CommandExecutor {
         this.clans = Clans.getPlugin(Clans.class);
         this.rallys = new HashMap<>();
 
+
         plugin.getServer().getPluginManager().registerEvents(new Listener() {
             @EventHandler(priority = EventPriority.MONITOR)
-            public void onJoin(PlayerJoinEvent event) {
+            public void onJoin(PlayerRegisterLunarClientEvent event) {
                 Player player = event.getPlayer();
                 clans.getPlayerAPI().getPlayerClan(player.getUniqueId()).ifPresent(clan -> {
                     if (!rallys.containsKey(clan.getId()))
@@ -66,7 +67,7 @@ public class ClanRallyCommand implements CommandExecutor {
                     toRemove.add(uuid);
                     clans.getClanAPI().getClanData().get(uuid).getOnlineMembers().stream().map(Bukkit::getPlayer)
                             .forEach(player -> {
-                                loader.getWaypointModule().removeWaypoint(player, config.getRallyWaypointFormat());
+                                loader.getWaypointModule().removeWaypoint(player, color(config.getRallyWaypointFormat()));
                             });
                 }
             });
@@ -106,7 +107,7 @@ public class ClanRallyCommand implements CommandExecutor {
         if (rallys.containsKey(clan.getId())) {
             RallyInfo info = rallys.remove(clan.getId());
             clan.getOnlineMembers().stream().map(Bukkit::getPlayer).forEach(teammate -> {
-                loader.getWaypointModule().removeWaypoint(teammate, config.getRallyWaypointFormat());
+                loader.getWaypointModule().removeWaypoint(teammate, color(config.getRallyWaypointFormat()));
             });
         }
 
@@ -114,7 +115,7 @@ public class ClanRallyCommand implements CommandExecutor {
             loader.getWaypointModule().addWaypoint(teammate, build(location));
             ProtectedRegion region = getRegionAt(location);
 
-            teammate.sendMessage(config.getRallyMessage().replace("{location}",
+            teammate.sendMessage(config.getRallyMessage().replace("&", "" + ChatColor.COLOR_CHAR).replace("{location}",
                             location.getWorld().getName() + ", " + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ())
                     .replace("{player}", player.getName())
                     .replace("{region}", region == null ? "None" : region.getId()));
@@ -125,9 +126,13 @@ public class ClanRallyCommand implements CommandExecutor {
         return true;
     }
 
+    private String color(String input) {
+        return ChatColor.translateAlternateColorCodes('&', input);
+    }
+
     private Waypoint build(Location location) {
         return Waypoint.builder()
-                .name(config.getRallyWaypointFormat())
+                .name(color(config.getRallyWaypointFormat()))
                 .location(BukkitApollo.toApolloBlockLocation(location))
                 .color(Color.decode(config.getRallyWaypointColorHex()))
                 .build();
