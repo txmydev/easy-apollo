@@ -1,8 +1,8 @@
-C:\Users\maxk\Documents\Contrum\Panda\Client-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\listener\ClansListener.java
-C:\Users\maxk\Documents\Contrum\Panda\Client-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\AbyssPlugin.java
-C:\Users\maxk\Documents\Contrum\Panda\Client-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\command\ClanRallyCommand.java
-C:\Users\maxk\Documents\Contrum\Panda\Client-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\AbyssConfig.java
-C:\Users\maxk\Documents\Contrum\Panda\Client-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\listener\UKothListener.java
-C:\Users\maxk\Documents\Contrum\Panda\Client-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\serializable\BorderSerializer.java
-C:\Users\maxk\Documents\Contrum\Panda\Client-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\serializable\WaypointSerializer.java
-C:\Users\maxk\Documents\Contrum\Panda\Client-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\wrapper\KothWrapper.java
+C:\Users\mkahn\Documents\Contrum\Panda\Customer-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\wrapper\KothWrapper.java
+C:\Users\mkahn\Documents\Contrum\Panda\Customer-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\AbyssConfig.java
+C:\Users\mkahn\Documents\Contrum\Panda\Customer-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\serializable\BorderSerializer.java
+C:\Users\mkahn\Documents\Contrum\Panda\Customer-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\AbyssPlugin.java
+C:\Users\mkahn\Documents\Contrum\Panda\Customer-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\listener\ClansListener.java
+C:\Users\mkahn\Documents\Contrum\Panda\Customer-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\listener\UKothListener.java
+C:\Users\mkahn\Documents\Contrum\Panda\Customer-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\serializable\WaypointSerializer.java
+C:\Users\mkahn\Documents\Contrum\Panda\Customer-GitHub\AbyssLunarAddon\plugin\src\main\java\org\contrum\abyss\plugin\command\ClanRallyCommand.java
