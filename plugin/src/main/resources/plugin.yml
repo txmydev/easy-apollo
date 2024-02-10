@@ -1,0 +1,10 @@
+name: AbyssLunarAddon
+main: org.contrum.abyss.plugin.AbyssPlugin
+version: ${project.version}
+depend: [WorldEdit, WorldGuard]
+softdepend:
+  - UltimateKoth
+  - UltimateClans
+
+commands:
+  rally:

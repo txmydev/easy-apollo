@@ -14,6 +14,7 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
+    <finalName>lunar-addon-${project.version}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -50,6 +51,10 @@
       <id>lunarclient</id>
       <url>https://repo.lunarclient.dev</url>
     </repository>
+    <repository>
+      <id>enginehub</id>
+      <url>https://maven.enginehub.org/repo/</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -77,15 +82,41 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>7.2.9</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.lunarclient</groupId>
+      <artifactId>apollo-extra-adventure4</artifactId>
+      <version>1.0.8</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.26</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.github.UlrichBR</groupId>
+      <artifactId>UltimateClans</artifactId>
+      <version>LATEST</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/../libs/ultimateclans.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89</groupId>
+      <artifactId>worldguard</artifactId>
+      <version>7.0.9</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/../libs/worldguard-bukkit-7.0.9-dist.jar</systemPath>
+    </dependency>
   </dependencies>
   <properties>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.source>8</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 </project>

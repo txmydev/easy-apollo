@@ -1,6 +1,7 @@
 org\contrum\abbys\modules\AbyssServerRuleModule.class
 org\contrum\abbys\util\DownloadFileThread$ErrorHandler.class
 org\contrum\abbys\util\DownloadFileThread$FinishedHandler.class
+org\contrum\abbys\util\DownloadFileThread$1.class
 org\contrum\abbys\util\TaskUtil$Callable.class
 org\contrum\abbys\event\AbyssLoadEvent.class
 org\contrum\abbys\modules\AbyssCooldownModule.class

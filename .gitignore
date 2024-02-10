@@ -1,2 +1,6 @@
 /target/
 /.idea/
+/plugin/target/
+/api/target
+api.iml
+plugin/dependency-reduced-pom.xml
