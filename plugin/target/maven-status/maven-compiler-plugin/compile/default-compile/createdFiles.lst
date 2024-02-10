@@ -1,0 +1,8 @@
+org\contrum\abyss\plugin\serializable\WaypointSerializer.class
+org\contrum\abyss\plugin\AbyssConfig.class
+org\contrum\abyss\plugin\command\ClanRallyCommand.class
+org\contrum\abyss\plugin\serializable\BorderSerializer.class
+org\contrum\abyss\plugin\wrapper\KothWrapper.class
+org\contrum\abyss\plugin\listener\UKothListener.class
+org\contrum\abyss\plugin\AbyssPlugin.class
+org\contrum\abyss\plugin\listener\ClansListener.class
