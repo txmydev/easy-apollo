@@ -1,44 +1,5 @@
-# Abyss Lunar Addon
-The only needed addon to start using [Apollo](https://github.com/LunarClient/Apollo).
+package org.contrum.abyss.example;
 
-# Usages
-You can use Abyss as an [api](https://github.com/Contrum/AbyssLunarAddon/api)
-or use the [plugin](https://github.com/Contrum/AbyssLunarAddon/plugin) which includes
-commands and multiple HCF plugins hooks for rallys, koths, etc.
-
-## Using the plugin
-Download the plugin from releases page and install it in your server,
-the first time it will search for Apollo dependency, if not found it will be downloaded,
-If apollo cannot be started after downloading it, then the server will restart to ensure
-Apollo is loaded.
-
-## Using the API
-```bash
-git clone https://github.com/Contrum/AbyssLunarAddon && cd AbyssLunarAddon
-mvn clean install
-```
-## Usage
-### Maven
-```xml
-<dependencies>
-    <dependency>
-        <groupId>org.contrum.abyss</groupId>
-        <artifactId>api</artifactId>
-        <version>1.0.0</version>
-        <scope>compile</scope>
-    </dependency>
-</dependencies>
-```
-
-### Gradle
-```groovy
-dependencies {
-    implementation 'org.contrum.abyss.api:1.0.0'
-}
-```
-
-## Example API Usage
-```java
 import com.lunarclient.apollo.BukkitApollo;
 import com.lunarclient.apollo.common.cuboid.Cuboid2D;
 import com.lunarclient.apollo.module.waypoint.Waypoint;
@@ -50,11 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.contrum.abyss.AbyssLoader;
 import org.contrum.abyss.AbyssLoaderOptions;
-import event.org.contrum.org.contrum.abyss.AbyssLoadEvent;
-import modules.org.contrum.org.contrum.abyss.AbyssBorderModule;
-import modules.org.contrum.org.contrum.abyss.AbyssCombatModule;
-import modules.org.contrum.org.contrum.abyss.AbyssTitleModule;
-import modules.org.contrum.org.contrum.abyss.AbyssWaypointModule;
+import org.contrum.abyss.modules.AbyssBorderModule;
+import org.contrum.abyss.modules.AbyssWaypointModule;
+import org.contrum.abyss.event.AbyssLoadEvent;
+import org.contrum.abyss.modules.AbyssCombatModule;
+import org.contrum.abyss.modules.AbyssTitleModule;
 
 import java.awt.*;
 import java.time.Duration;
@@ -111,4 +72,3 @@ public class ExampleAbbysPlugin extends JavaPlugin implements Listener {
         });
     }
 }
-```

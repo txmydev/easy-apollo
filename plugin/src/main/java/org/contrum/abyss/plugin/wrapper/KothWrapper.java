@@ -1,12 +1,11 @@
 package org.contrum.abyss.plugin.wrapper;
 
-import de.exlll.configlib.Serializer;
 import lombok.Getter;
 
 import java.awt.*;
 
 @Getter
-public class KothWrapper implements Serializer<KothWrapper, String> {
+public class KothWrapper {
 
     private String kothName;
     private Color color;
@@ -19,13 +18,11 @@ public class KothWrapper implements Serializer<KothWrapper, String> {
         this.color = color;
     }
 
-    @Override
-    public String serialize(KothWrapper wrapper) {
+    public static String serialize(KothWrapper wrapper) {
         return wrapper.kothName + ": " + wrapper.getColor().getRed() + ","+wrapper.getColor().getGreen() + ","+wrapper.getColor().getBlue()+wrapper.getColor().getAlpha();
     }
 
-    @Override
-    public KothWrapper deserialize(String s) {
+    public static KothWrapper deserialize(String s) {
         String[] firstSplit = s.split(": ");
         String name = firstSplit[0];
         String[] colorSplit = firstSplit[1].split(",");

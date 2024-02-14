@@ -1,0 +1,21 @@
+borders: []
+waypoints: []
+
+# Here you can configure the /rally command permission
+# you can also disable the permission by leaving it empty
+rallyPermission: clan.rally.command
+# Here you can configure the message that all the clan members
+# will receive when a member triggers /rally.
+rallyMessage: '&eA new clan rally was set at &6{location} &eby &6{player}. &7(Region:
+  {region})'
+# Here you can specify how long (in minutes) will the rally waypoint last
+# set -1 to make it permanent until another rally waypoint is
+# performed.
+rallyDurationMinutes: 10
+# Here you can configure how the rally waypoint will look
+# you can use {player} to represent the player that made the
+# rally.
+rallyWaypointFormat: Clan Rally
+# Set the color of the rally waypoint (in hex format)
+rallyWaypointColorHex: '#FF2D00'
+rallyOnlyLeader: true

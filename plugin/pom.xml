@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.contrum.abyss</groupId>
         <artifactId>AbyssLunarAddon</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.3</version>
     </parent>
 
     <artifactId>plugin</artifactId>
@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <build>
-        <finalName>lunar-addon-${project.version}</finalName>
+        <finalName>AbyssLunarAddon-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -83,11 +83,6 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.Exlll.ConfigLib</groupId>
-            <artifactId>configlib-paper</artifactId>
-            <version>v4.4.0</version>
-        </dependency>
         <dependency>
             <groupId>com.lunarclient</groupId>
             <artifactId>apollo-api</artifactId>

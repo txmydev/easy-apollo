@@ -2,12 +2,12 @@ package org.contrum.abyss.plugin.serializable;
 
 import com.lunarclient.apollo.common.cuboid.Cuboid2D;
 import com.lunarclient.apollo.module.border.Border;
-import de.exlll.configlib.Serializer;
+import lombok.experimental.UtilityClass;
 
 import java.awt.*;
 
-public class BorderSerializer implements Serializer<Border, String> {
-    @Override
+@UtilityClass
+public class BorderSerializer  {
     public String serialize(Border border) {
         return border.getId() + "," +
                 border.getWorld() + "," +
@@ -25,7 +25,6 @@ public class BorderSerializer implements Serializer<Border, String> {
                 border.isCanShrinkOrExpand();
     }
 
-    @Override
     public Border deserialize(String s) {
         String[] parts = s.split(",");
         Border.BorderBuilder builder = Border.builder();

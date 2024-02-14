@@ -1,14 +1,13 @@
 package org.contrum.abyss.plugin.serializable;
 
-import com.lunarclient.apollo.BukkitApollo;
 import com.lunarclient.apollo.common.location.ApolloBlockLocation;
 import com.lunarclient.apollo.module.waypoint.Waypoint;
-import de.exlll.configlib.Serializer;
+import lombok.experimental.UtilityClass;
 
 import java.awt.*;
 
-public class WaypointSerializer implements Serializer<Waypoint, String> {
-    @Override
+@UtilityClass
+public class WaypointSerializer {
     public String serialize(Waypoint waypoint) {
         return waypoint.getName() + "," +
                 waypoint.getColor().getRed() + "," +
@@ -23,7 +22,6 @@ public class WaypointSerializer implements Serializer<Waypoint, String> {
                 waypoint.isPreventRemoval();
     }
 
-    @Override
     public Waypoint deserialize(String s) {
         String[] parts = s.split(",");
         Waypoint.WaypointBuilder builder = Waypoint.builder();

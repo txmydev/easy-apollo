@@ -3,7 +3,7 @@
   <parent>
     <artifactId>AbyssLunarAddon</artifactId>
     <groupId>org.contrum.abyss</groupId>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>plugin</artifactId>
@@ -14,7 +14,7 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
-    <finalName>lunar-addon-${project.version}</finalName>
+    <finalName>AbyssLunarAddon-${project.version}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

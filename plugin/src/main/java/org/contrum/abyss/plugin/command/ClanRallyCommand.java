@@ -20,8 +20,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.contrum.abbys.AbyssLoader;
-import org.contrum.abbys.event.PlayerRegisterLunarClientEvent;
+import org.contrum.abyss.AbyssLoader;
+import org.contrum.abyss.event.PlayerRegisterLunarClientEvent;
 import org.contrum.abyss.plugin.AbyssConfig;
 import org.contrum.abyss.plugin.AbyssPlugin;
 
@@ -54,7 +54,7 @@ public class ClanRallyCommand implements CommandExecutor {
                         return;
 
                     RallyInfo info = rallys.get(clan.getId());
-                    loader.getWaypointModule().addWaypoint(player, build(info.getLocation()));
+                    loader.getWaypointModule().addWaypoint(player, build(info.getCreator(), info.getLocation()));
                 });
             }
 
@@ -107,12 +107,12 @@ public class ClanRallyCommand implements CommandExecutor {
         if (rallys.containsKey(clan.getId())) {
             RallyInfo info = rallys.remove(clan.getId());
             clan.getOnlineMembers().stream().map(Bukkit::getPlayer).forEach(teammate -> {
-                loader.getWaypointModule().removeWaypoint(teammate, color(config.getRallyWaypointFormat()));
+                loader.getWaypointModule().removeWaypoint(teammate, color(config.getRallyWaypointFormat().replace("{player}", info.getCreator())));
             });
         }
 
         clan.getOnlineMembers().stream().map(Bukkit::getPlayer).forEach(teammate -> {
-            loader.getWaypointModule().addWaypoint(teammate, build(location));
+            loader.getWaypointModule().addWaypoint(teammate, build(player.getName(), location));
             ProtectedRegion region = getRegionAt(location);
 
             teammate.sendMessage(config.getRallyMessage().replace("&", "" + ChatColor.COLOR_CHAR).replace("{location}",
@@ -130,9 +130,9 @@ public class ClanRallyCommand implements CommandExecutor {
         return ChatColor.translateAlternateColorCodes('&', input);
     }
 
-    private Waypoint build(Location location) {
+    private Waypoint build(String creator, Location location) {
         return Waypoint.builder()
-                .name(color(config.getRallyWaypointFormat()))
+                .name(color(config.getRallyWaypointFormat().replace("{player}", creator)))
                 .location(BukkitApollo.toApolloBlockLocation(location))
                 .color(Color.decode(config.getRallyWaypointColorHex()))
                 .build();
