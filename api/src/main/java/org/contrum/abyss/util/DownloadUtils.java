@@ -1,8 +1,5 @@
 package org.contrum.abyss.util;
 
-import lombok.Builder;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,29 +7,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Path;
 
-@Builder
-public class DownloadFileThread implements Runnable {
+public class DownloadUtils {
 
-    private final String urlString;
-    private final Path path;
-    private final ProgressReportHandler progressReportHandler;
-    private final ErrorHandler errorHandler;
-    private final FinishedHandler finishedHandler;
+    public static DownloadResult download(
+            String urlString,
+            Path path,
+            DownloadReportHandler downloadReportHandler,
+            DownloadErrorHandler downloadErrorHandler
+    ) {
 
-    private DownloadFileThread(String urlString, Path path, ProgressReportHandler progressReportHandler, ErrorHandler errorHandler, FinishedHandler finishedHandler) {
-        this.urlString = urlString;
-        this.path = path;
-        this.progressReportHandler = progressReportHandler;
-        this.errorHandler = errorHandler;
-        this.finishedHandler = finishedHandler;
-    }
-
-    public void start() {
-        this.run();
-    }
-
-    @Override
-    public void run() {
         long reportTimer = System.currentTimeMillis() + 1500L;
 
         HttpURLConnection connection;
@@ -62,7 +45,7 @@ public class DownloadFileThread implements Runnable {
                 totalRead += read;
 
                 if (System.currentTimeMillis() > reportTimer) {
-                    progressReportHandler.report((int) (totalRead * 100 / totalFileLength));
+                    downloadReportHandler.report((int) (totalRead * 100 / totalFileLength));
                     reportTimer = System.currentTimeMillis() + 1500L;
                 }
 
@@ -73,26 +56,15 @@ public class DownloadFileThread implements Runnable {
             input.close();
             output.close();
 
-            finishedHandler.finished(totalRead);
+            return new DownloadResult(totalRead, true);
         } catch (Exception ex) {
-            if (errorHandler != null)
-                errorHandler.error(ex);
+            if (downloadErrorHandler != null)
+                downloadErrorHandler.error(ex);
             else
                 ex.printStackTrace();
+
+            return new DownloadResult(-1, false);
         }
     }
-
-    public interface ProgressReportHandler {
-        void report(int progress);
-    }
-
-    public interface FinishedHandler {
-        void finished(long bytesDownloaded);
-    }
-
-    public interface ErrorHandler {
-        void error(Throwable throwable);
-    }
-
 
 }

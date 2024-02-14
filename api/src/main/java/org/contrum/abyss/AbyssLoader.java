@@ -1,10 +1,6 @@
 package org.contrum.abyss;
 
 import com.lunarclient.apollo.Apollo;
-import com.lunarclient.apollo.event.ApolloListener;
-import com.lunarclient.apollo.event.EventBus;
-import com.lunarclient.apollo.event.Listen;
-import com.lunarclient.apollo.event.player.ApolloRegisterPlayerEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -12,10 +8,10 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.contrum.abyss.event.AbyssLoadEvent;
-import org.contrum.abyss.event.PlayerRegisterLunarClientEvent;
 import org.contrum.abyss.modules.*;
 import org.contrum.abyss.util.ApolloUtils;
-import org.contrum.abyss.util.DownloadFileThread;
+import org.contrum.abyss.util.DownloadResult;
+import org.contrum.abyss.util.DownloadUtils;
 import org.contrum.abyss.util.TaskUtil;
 
 import java.nio.file.Path;
@@ -24,7 +20,7 @@ import java.util.Collection;
 import java.util.function.BiConsumer;
 
 @Getter
-public class AbyssLoader implements ApolloListener {
+public class AbyssLoader {
 
     private final JavaPlugin plugin;
     private final AbyssLoaderOptions options;
@@ -48,6 +44,7 @@ public class AbyssLoader implements ApolloListener {
 
         if (!this.isRegistered()) {
             ApolloUtils.logger = plugin.getLogger();
+            plugin.getLogger().info("Didn't find apollo-bukkit in the server plugins, downloading it...");
             Path serverPath = plugin.getServer().getWorldContainer().toPath().normalize();
 
             String urlString = ApolloUtils.getLatestVersionDownloadLink();
@@ -75,7 +72,6 @@ public class AbyssLoader implements ApolloListener {
         AbyssLoadEvent event = new AbyssLoadEvent();
         plugin.getServer().getPluginManager().callEvent(event);
 
-        EventBus.getBus().register(this);
     }
 
     /**
@@ -88,27 +84,29 @@ public class AbyssLoader implements ApolloListener {
     }
 
     private void download(String urlString, Path path, String fileName) {
-        DownloadFileThread.builder()
-                .urlString(urlString)
-                .path(path)
-                .progressReportHandler(progress -> plugin.getLogger().info(options.getProgressReportOrFallback(progressS -> "Downloading " + fileName + ",  (" + progress + "% / 100%)").apply(progress)))
-                .finishedHandler(bytes -> {
-                    plugin.getLogger().info(options.getFinishedReportOrFallback(totalBytes -> "Successfully downloaded " + fileName + ". (Size: " + (bytes / (1024 * 1024) + " MB)")).apply(bytes));
+        DownloadResult result = DownloadUtils.download(
+                urlString,
+                path,
+                progress -> plugin.getLogger().info(options.getProgressReportOrFallback(none -> "Downloading " + fileName + ", (" + progress + "%/100%)").apply(progress)),
+                error -> plugin.getLogger().severe(options.getErrorReportOrFallback(ex -> "Error ocurred while downloading " + fileName + ": " + error.getMessage()).apply(error))
+        );
 
-                    try {
-                        PluginManager manager = plugin.getServer().getPluginManager();
-                        manager.loadPlugin(path.toFile());
-                        manager.enablePlugin(this.getApolloPlugin());
-                    } catch (Exception ex) {
-                        plugin.getLogger().info("Failed to initialize plugin " + fileName + ", restarting the server...");
-                        if (options.isRestartUponLoadingError())
-                            TaskUtil.runLater(plugin, () -> plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restart"), 10L);
-                    }
+        if (!result.isSuccess()) {
+            plugin.getPluginLoader().disablePlugin(plugin);
+            return;
+        }
 
-                })
-                .errorHandler(error -> plugin.getLogger().severe(options.getErrorReportOrFallback(ex -> "Error ocurred while downloading " + fileName + ": " + error.getMessage()).apply(error)))
-                .build()
-                .start();
+        plugin.getLogger().info(options.getFinishedReportOrFallback(totalBytes -> "Successfully downloaded " + fileName + ". (Size: " + (totalBytes / (1024 * 1024) + " MB)")).apply(result.getBytes()));
+
+        try {
+            PluginManager manager = plugin.getServer().getPluginManager();
+            manager.loadPlugin(path.toFile());
+            manager.enablePlugin(this.getApolloPlugin());
+        } catch (Exception ex) {
+            plugin.getLogger().info("Failed to initialize plugin " + fileName + ", restarting the server...");
+            if (options.isRestartUponLoadingError())
+                TaskUtil.runLater(plugin, () -> plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restart"), 10L);
+        }
     }
 
     private Plugin getApolloPlugin() {
@@ -141,12 +139,5 @@ public class AbyssLoader implements ApolloListener {
         });
     }
 
-    @Listen
-    private void onRegisterPlayer(ApolloRegisterPlayerEvent event) {
-        Player player = Bukkit.getPlayer(event.getPlayer().getUniqueId());
-
-        PlayerRegisterLunarClientEvent register = new PlayerRegisterLunarClientEvent(player);
-        plugin.getServer().getPluginManager().callEvent(register);
-    }
 
 }
