@@ -162,8 +162,13 @@ public class AbyssBorderModule implements ApolloListener {
         ApolloPlayer player = event.getPlayer();
         borders.forEach((id, border) ->
         {
+
             List<UUID> viewers = this.viewers.get(id);
             if (!viewers.contains(player.getUniqueId())) {
+                if (border == null) {
+                    return;
+                }
+
                 module.displayBorder(player, border);
                 viewers.add(player.getUniqueId());
             }

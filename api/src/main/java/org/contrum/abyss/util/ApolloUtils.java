@@ -18,7 +18,7 @@ public class ApolloUtils extends Thread {
 
     public static String getLatestVersionDownloadLink() {
 
-        String fallbackDownload = "https://github.com/LunarClient/Apollo/releases/download/v1.0.8/apollo-bukkit-1.0.8.jar";
+        String fallbackDownload = "https://github.com/LunarClient/Apollo/releases/download/v1.1.4/apollo-bukkit-1.1.4.jar";
 
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL("https://api.github.com/repos/LunarClient/Apollo/releases/latest").openConnection();

@@ -10,6 +10,7 @@ import org.contrum.abyss.AbyssLoader;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,7 @@ public class ClansListener implements Listener, Runnable {
 
             clanOptional.ifPresent(clan -> {
                 loader.getTeamModule().update(player,
-                        new ArrayList<>(clan.getOnlineMembers().stream().map(Bukkit::getPlayer).filter(teammate -> teammate.getWorld().equals(player.getWorld())).collect(Collectors.toList())),
+                        new ArrayList<>(clan.getOnlineMembers().stream().map(Bukkit::getPlayer).filter(Objects::nonNull).filter(teammate -> teammate.getWorld().equals(player.getWorld())).collect(Collectors.toList())),
                         Color.GREEN,
                         teammate -> net.kyori.adventure.text.Component.text(teammate.getDisplayName()));
             });

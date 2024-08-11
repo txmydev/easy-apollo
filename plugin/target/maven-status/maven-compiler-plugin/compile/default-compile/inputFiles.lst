@@ -1,8 +1,8 @@
-C:\Users\Tomi\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\AbyssPlugin.java
-C:\Users\Tomi\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\listener\UKothListener.java
-C:\Users\Tomi\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\wrapper\KothWrapper.java
-C:\Users\Tomi\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\serializable\WaypointSerializer.java
-C:\Users\Tomi\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\serializable\BorderSerializer.java
-C:\Users\Tomi\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\AbyssConfig.java
-C:\Users\Tomi\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\command\ClanRallyCommand.java
-C:\Users\Tomi\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\listener\ClansListener.java
+D:\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\wrapper\KothWrapper.java
+D:\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\command\ClanRallyCommand.java
+D:\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\AbyssPlugin.java
+D:\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\listener\UKothListener.java
+D:\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\listener\ClansListener.java
+D:\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\AbyssConfig.java
+D:\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\serializable\BorderSerializer.java
+D:\IdeaProjects\easy-apollo\plugin\src\main\java\org\contrum\abyss\plugin\serializable\WaypointSerializer.java

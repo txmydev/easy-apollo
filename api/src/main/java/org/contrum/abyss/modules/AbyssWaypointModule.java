@@ -7,6 +7,7 @@ import com.lunarclient.apollo.event.Listen;
 import com.lunarclient.apollo.event.player.ApolloRegisterPlayerEvent;
 import com.lunarclient.apollo.module.waypoint.Waypoint;
 import com.lunarclient.apollo.module.waypoint.WaypointModule;
+import com.lunarclient.apollo.option.ListOption;
 import com.lunarclient.apollo.recipients.Recipients;
 import lombok.Getter;
 import org.bukkit.entity.Player;

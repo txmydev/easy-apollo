@@ -6,7 +6,7 @@
 
     <groupId>org.contrum.abyss</groupId>
     <artifactId>AbyssLunarAddon</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>easy-apollo</name>
@@ -15,9 +15,22 @@
         <module>api</module>
     </modules>
 
+    <distributionManagement>
+        <repository>
+            <id>contrum-repo</id>
+            <url>https://repo.contrum.org/releases/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>contrum-repo</id>
+            <url>https://repo.contrum.org/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <apollo.version>1.1.4</apollo.version>
     </properties>
 
     <dependencies>

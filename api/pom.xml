@@ -6,10 +6,11 @@
     <parent>
         <groupId>org.contrum.abyss</groupId>
         <artifactId>AbyssLunarAddon</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>api</artifactId>
+
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -44,14 +45,14 @@
         <dependency>
             <groupId>com.lunarclient</groupId>
             <artifactId>apollo-api</artifactId>
-            <version>1.0.8</version>
+            <version>${apollo.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- For Adventure support add the following dependency. -->
         <dependency>
             <groupId>com.lunarclient</groupId>
             <artifactId>apollo-extra-adventure4</artifactId>
-            <version>1.0.8</version>
+            <version>${apollo.version}</version>
             <scope>provided</scope>
         </dependency>
 
