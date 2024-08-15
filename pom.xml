@@ -42,10 +42,4 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>Contrum</id>
-            <url>http://104.243.46.168:8080/snapshots</url>
-        </repository>
-    </distributionManagement>
 </project>
