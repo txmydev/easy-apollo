@@ -2,14 +2,18 @@ package org.contrum.abyss.modules;
 
 import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.module.serverrule.ServerRuleModule;
-import org.contrum.abyss.AbyssLoader;
-;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.contrum.abyss.AbyssLoader;
+
+;
 
 public class AbyssServerRuleModule {
 
     private final AbyssLoader loader;
     private final JavaPlugin plugin;
+
+    @Getter
     private final ServerRuleModule module;
 
     public AbyssServerRuleModule(AbyssLoader loader) {
@@ -37,5 +41,6 @@ public class AbyssServerRuleModule {
     public void setDisableReloadingChunks(boolean value) {
         this.module.getOptions().set(ServerRuleModule.DISABLE_CHUNK_RELOADING, value);
     }
+
 
 }

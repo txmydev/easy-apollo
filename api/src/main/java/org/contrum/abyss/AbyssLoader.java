@@ -2,6 +2,9 @@ package org.contrum.abyss;
 
 import com.lunarclient.apollo.Apollo;
 import lombok.Getter;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -22,18 +25,20 @@ import java.util.function.BiConsumer;
 @Getter
 public class AbyssLoader {
 
+    private static final Logger log = LogManager.getLogger(AbyssLoader.class);
     private final JavaPlugin plugin;
     private final AbyssLoaderOptions options;
-    private final AbyssBorderModule borderModule;
-    private final AbyssChatModule chatModule;
-    private final AbyssCombatModule combatModule;
-    private final AbyssCooldownModule cooldownModule;
-    private final AbyssNotificationModule notificationModule;
-    private final AbyssServerRuleModule serverRuleModule;
-    private final AbyssStaffModule staffModule;
-    private final AbyssTitleModule titleModule;
-    private final AbyssWaypointModule waypointModule;
-    private final AbyssTeamModule teamModule;
+
+    private AbyssBorderModule borderModule;
+    private AbyssChatModule chatModule;
+    private AbyssCombatModule combatModule;
+    private AbyssCooldownModule cooldownModule;
+    private AbyssNotificationModule notificationModule;
+    private AbyssServerRuleModule serverRuleModule;
+    private AbyssStaffModule staffModule;
+    private AbyssTitleModule titleModule;
+    private AbyssWaypointModule waypointModule;
+    private AbyssTeamModule teamModule;
 
     private boolean loaded;
     private boolean downloadedLatest;
@@ -56,22 +61,35 @@ public class AbyssLoader {
             downloadedLatest = true;
         }
 
+        log.log(Level.DEBUG, "------------------------");
+        log.log(Level.DEBUG, "Loading Modules...");
         this.borderModule = new AbyssBorderModule(this);
+        log.log(Level.DEBUG, "  - Border Module");
         this.chatModule = new AbyssChatModule(this);
+        log.log(Level.DEBUG, "  - Chat Module");
         this.combatModule = new AbyssCombatModule(this);
+        log.log(Level.DEBUG, "  - Combat Module");
         this.cooldownModule = new AbyssCooldownModule(this);
+        log.log(Level.DEBUG, "  - Cooldown Module");
         this.notificationModule = new AbyssNotificationModule(this);
+        log.log(Level.DEBUG, "  - Notification Module");
         this.serverRuleModule = new AbyssServerRuleModule(this);
+        log.log(Level.DEBUG, "  - Server Rule Module");
         this.staffModule = new AbyssStaffModule(this);
+        log.log(Level.DEBUG, "  - Staff Module");
         this.teamModule = new AbyssTeamModule(this);
+        log.log(Level.DEBUG, "  - Team Module");
         this.titleModule = new AbyssTitleModule(this);
+        log.log(Level.DEBUG, "  - Title Module");
         this.waypointModule = new AbyssWaypointModule(this);
+        log.log(Level.DEBUG, "  - Waypoint Module");
 
         loaded = true;
-
+        log.log(Level.DEBUG, "------------------------");
+        log.log(Level.DEBUG, "Firing up event....");
         AbyssLoadEvent event = new AbyssLoadEvent();
         plugin.getServer().getPluginManager().callEvent(event);
-
+        log.log(Level.DEBUG, "------------------------");
     }
 
     /**
